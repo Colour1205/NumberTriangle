@@ -16,6 +16,15 @@ public class NumberTriangleTest {
     }
 
     @Test
+    public void test_loading_tree() throws IOException {
+        NumberTriangle mt = NumberTriangle.loadTriangle("little_tree.txt");
+        NumberTriangle expected = new NumberTriangle(1);
+        expected.setLeft(new NumberTriangle(2));
+        expected.setRight(new NumberTriangle(3));
+        assertEquals(expected.getRoot(), mt.getRoot());
+    }
+
+    @Test
     public void rootTree() throws IOException {
 
         NumberTriangle mt = NumberTriangle.loadTriangle("input_tree.txt");
@@ -26,6 +35,7 @@ public class NumberTriangleTest {
     public void retrieveTreeBasic() throws IOException {
 
         NumberTriangle mt = NumberTriangle.loadTriangle("input_tree.txt");
+        System.out.println(mt.retrieve("lrl"));
         assertEquals(47, mt.retrieve("lr"));
     }
 
