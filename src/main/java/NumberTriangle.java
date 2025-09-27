@@ -1,4 +1,6 @@
 import java.io.*;
+import java.util.ArrayList;
+import java.util.LinkedList;
 
 /**
  * This is the provided NumberTriangle class to be used in this coding task.
@@ -110,8 +112,7 @@ public class NumberTriangle {
         BufferedReader br = new BufferedReader(new InputStreamReader(inputStream));
 
 
-        // TODO define any variables that you want to use to store things
-
+        LinkedList<NumberTriangle> parents = new LinkedList<NumberTriangle>();
         // will need to return the top of the NumberTriangle,
         // so might want a variable for that.
         NumberTriangle top = null;
@@ -119,10 +120,25 @@ public class NumberTriangle {
         String line = br.readLine();
         while (line != null) {
 
-            // remove when done; this line is included so running starter code prints the contents of the file
-            System.out.println(line);
+            if (top == null) {
+                top = new NumberTriangle(Integer.parseInt(line));
+                parents.add(top);
+                continue;
+            }
 
-            // TODO process the line
+            String[] t = line.split(" ");
+            ArrayList<NumberTriangle> children = new ArrayList<>();
+            for (int i = 0; i < t.length; i++) {
+                NumberTriangle child = new NumberTriangle(Integer.parseInt(t[i]));
+                children.add(child);
+                parents.add(child);
+            }
+
+            for (int i = 0; i < children.size() - 1; i++){
+                NumberTriangle curr = parents.poll();
+                curr.setLeft(children.get(i));
+                curr.setRight(children.get(i+1));
+            }
 
             //read the next line
             line = br.readLine();
